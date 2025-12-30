@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stackly – Home 1</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+/* ================= RESET ================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+
+body{
+  background:#000;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* ================= HEADER ================= */
+.header-wrapper{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:1000;
+  display:flex;
+  justify-content:center;
+}
+
+.header{
+  width:calc(100% - 60px);
+  max-width:1400px;
+  height:96px;
+  padding:0 34px;
+  margin-top:20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:linear-gradient(
+    90deg,
+    rgba(255,255,255,.14),
+    rgba(255,255,255,.06)
+  );
+  backdrop-filter:blur(20px);
+  border-radius:22px;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 30px 60px rgba(0,0,0,.6);
+}
+
+/* LOGO */
+.logo img{
+  height:70px;
+}
+
+/* DESKTOP NAV */
+.nav{
+  display:flex;
+  align-items:center;
+  gap:28px;
+  font-weight:600;
+}
+
+.nav a{
+  color:#000000;
+  text-decoration:none;
+}
+.nav a:hover,
+.active{
+  color:#22d3ee;
+}
+
+/* DROPDOWN */
+.dropdown{
+  position:relative;
+}
+.dropdown-menu{
+  display:none;
+  position:absolute;
+  top:140%;
+  left:0;
+  background:#ffffff;
+  border-radius:14px;
+  min-width:160px;
+  box-shadow:0 20px 40px rgba(0,0,0,.7);
+}
+.dropdown:hover .dropdown-menu{
+  display:block;
+}
+.dropdown-menu a{
+  display:block;
+  padding:12px 16px;
+  font-size:14px;
+}
+
+/* LOGIN */
+.login-btn{
+  background:#2279e4;
+  color:#ffffff;
+  padding:10px 22px;
+  border-radius:12px;
+  font-weight:800;
+}
+
+/* HAMBURGER */
+.hamburger{
+  display:none;
+  width:46px;
+  height:46px;
+  border-radius:12px;
+  border:none;
+  cursor:pointer;
+  background:rgba(255,255,255,.2);
+}
+.hamburger i{
+  font-size:22px;
+  color:#fff;
+}
+
+/* ================= MOBILE MENU ================= */
+.mobile-menu{
+  position:fixed;
+  top:110px;
+  left:20px;
+  right:20px;
+  background:rgba(0,0,0,.92);
+  backdrop-filter:blur(12px);
+  border-radius:18px;
+  padding:24px;
+  display:none;
+  z-index:999;
+}
+.mobile-menu.open{
+  display:block;
+}
+
+.mobile-menu a,
+.mobile-drop-btn{
+  display:block;
+  width:100%;
+  padding:12px 0;
+  color:#fff;
+  background:none;
+  border:none;
+  text-align:left;
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* MOBILE DROPDOWN */
+.mobile-drop{
+  display:none;
+  padding-left:14px;
+}
+.mobile-drop.open{
+  display:block;
+}
+
+/* ================= HERO ================= */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding:140px 6% 0;
+  overflow:hidden;
+}
+
+/* BG IMAGE (DESKTOP) */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.12),rgba(0,0,0,0.12)),
+    url("bg.webp");
+  background-size:cover;
+  background-position:center;
+  filter:brightness(1.1) contrast(1.1) saturate(1.05);
+  z-index:0;
+}
+
+/* CURVE MASK (DESKTOP) */
+.hero::after{
+  content:"";
+  position:absolute;
+  top:0;
+  right:-12%;
+  width:55%;
+  height:100%;
+  background:inherit;
+  clip-path:ellipse(85% 100% at 100% 50%);
+  z-index:1;
+}
+
+/* DOTS */
+.dots{
+  position:absolute;
+  inset:0;
+  background-image:radial-gradient(
+    rgba(255,255,255,0.18) 1px,
+    transparent 1px
+  );
+  background-size:22px 22px;
+  opacity:.14;
+  z-index:2;
+}
+
+/* HERO CONTENT */
+.hero-left{
+  max-width:650px;
+  position:relative;
+  z-index:3;
+}
+
+.hero-left small{
+  letter-spacing:2px;
+  opacity:.9;
+}
+
+.hero-title{
+  font-size:52px;
+  margin:20px 0;
+  line-height:1.2;
+}
+
+.animate-text{
+  color:#ff5c2d;
+  display:inline-block;
+  animation:scaleFade 2.5s infinite;
+}
+
+.hero-btn{
+  background:#ff5c2d;
+  color:#000;
+  padding:14px 30px;
+  border-radius:30px;
+  border:none;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* TEXT ANIMATION */
+@keyframes scaleFade{
+  0%{transform:scale(.6);opacity:0}
+  40%{transform:scale(1);opacity:1}
+  100%{opacity:0}
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:1117px){
+  .nav{display:none}
+  .hamburger{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+}
+
+@media(max-width:900px){
+  .hero{
+    padding:120px 8% 0;
+    text-align:center;
+  }
+
+  /* MOBILE BG */
+  .hero::before{
+    background-image:
+      linear-gradient(rgba(0,0,0,0.18),rgba(0,0,0,0.18)),
+      url("bg.webp");
+    background-size:cover;
+    background-position:top center;
+  }
+
+  .hero::after{
+    display:none;
+  }
+
+  .hero-left{
+    margin:auto;
+  }
+
+  .hero-title{
+    font-size:36px;
+  }
+}
+</style>
+
+
+<!-- ================= HEADER ================= -->
+<div class="header-wrapper">
+  <header class="header">
+
+    <a href="index.html" class="logo">
+      <img src="stackly.webp" alt="Stackly">
+    </a>
+
+    <nav class="nav">
+      <div class="dropdown">
+        <a href="index.html" class="active">Home <i class="fa-solid fa-chevron-down"></i></a>
+        <div class="dropdown-menu">
+          <a href="home2.html">Home 2</a>
+        </div>
+      </div>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="aboutus.html">Dashboard📊</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html" class="login-btn">LOGIN</a>
+    </nav>
+
+    <button class="hamburger" id="hamburgerBtn">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+  </header>
+</div>
+
+<!-- ================= MOBILE MENU ================= -->
+<div class="mobile-menu" id="mobileMenu">
+
+  <button class="mobile-drop-btn" id="mobileDropBtn">
+    Home <i class="fa-solid fa-chevron-down"></i>
+  </button>
+
+  <div class="mobile-drop" id="mobileDrop">
+    <a href="home2.html">Home 2</a>
+  </div>
+
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="aboutus.html">Dashboard📊</a>
+  <a href="contact.html">Contact</a>
+  <a href="login.html" style="color:#1150bd">LOGIN</a>
+</div>
+
+<script>
+/* MOBILE MENU */
+const hamburgerBtn=document.getElementById("hamburgerBtn");
+const mobileMenu=document.getElementById("mobileMenu");
+const mobileDropBtn=document.getElementById("mobileDropBtn");
+const mobileDrop=document.getElementById("mobileDrop");
+
+hamburgerBtn.onclick=()=>mobileMenu.classList.toggle("open");
+mobileDropBtn.onclick=()=>mobileDrop.classList.toggle("open");
+
+/* HERO TEXT LOOP */
+const words=["Talent","Team","Experts","Leaders"];
+let i=0;
+const t=document.getElementById("txt");
+
+setInterval(()=>{
+  i=(i+1)%words.length;
+  t.textContent=words[i];
+},2500);
+</script>
+
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+
+body{
+  background:#05070f;
+  overflow-x:hidden;
+}
+
+/* ================= HERO ================= */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  color:#fff;
+}
+
+/* ===== BACKGROUND SLIDES ===== */
+.hero-bg{
+  position:absolute;
+  inset:0;
+  z-index:-3;
+}
+
+.hero-bg img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity 1.5s ease;
+}
+
+.hero-bg img.active{
+  opacity:1;
+}
+
+/* ===== DARK OVERLAY ===== */
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  z-index:-2;
+}
+
+/* ===== RED CURVE ===== */
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:#e23ba2;
+  clip-path:ellipse(55% 100% at 0% 50%);
+  z-index:-1;
+}
+
+/* ===== CONTENT ===== */
+.hero-content{
+  max-width:620px;
+  padding-left:8%;
+}
+
+.badge{
+  display:inline-block;
+  background:#ff2d2d;
+  padding:7px 16px;
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:22px;
+  letter-spacing:1px;
+}
+
+.hero-content h1{
+  font-size:50px;
+  line-height:1.2;
+  margin-bottom:22px;
+}
+
+.hero-content p{
+  font-size:16px;
+  line-height:1.7;
+  opacity:.9;
+  margin-bottom:32px;
+}
+
+/* BUTTON */
+.hire-btn{
+  display:inline-block;
+  padding:14px 36px;
+  background:#ff3b2f;
+  color:#fff;
+  text-decoration:none;
+  border-radius:30px;
+  font-weight:600;
+  transition:.3s ease;
+}
+
+/* ================= TABLET ================= */
+@media(max-width:900px){
+  .hero{
+    min-height:auto;
+    padding:140px 0 90px;
+    justify-content:center;
+    text-align:center;
+  }
+
+  .hero-overlay{
+    clip-path:none;
+    background:rgba(122,13,13,.85);
+  }
+
+  .hero-content{
+    padding:0 8%;
+  }
+
+  .hero-content h1{
+    font-size:36px;
+  }
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:600px){
+  .hero-content{
+    padding:0 6%;
+  }
+
+  .hero-content h1{
+    font-size:28px;
+    line-height:1.25;
+  }
+
+  .hero-content p{
+    font-size:14px;
+  }
+
+  .badge{
+    font-size:11px;
+  }
+
+  .hire-btn{
+    padding:12px 26px;
+    font-size:14px;
+  }
+}
+.hire-btn{
+  display:inline-block;
+  margin-top:25px;
+  padding:14px 34px;
+  background:linear-gradient(135deg,#21d19f,#1fae87);
+  color:#000;
+  font-weight:600;
+  font-size:16px;
+  text-decoration:none;
+  border-radius:30px;
+  transition:0.3s ease;
+  box-shadow:0 8px 20px rgba(33,209,159,0.3);
+}
+
+.hire-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 28px rgba(33,209,159,0.45);
+}
+.hero-content{
+  position: relative;
+  z-index: 5;
+}
+.hire-btn{
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+}
+.hero::before{
+  pointer-events: none;
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+
+  <!-- BACKGROUND IMAGES -->
+  <div class="hero-bg">
+    <!-- 🔁 replace with your images -->
+    <img src="sol1.webp" class="active">
+    <img src="s2.webp">
+    <img src="h2-1.webp">
+  </div>
+
+  <!-- RED OVERLAY -->
+  <div class="hero-overlay"></div>
+<!-- CONTENT -->
+<div class="hero-content">
+  <span class="badge">DEBIT MANAGEMENT</span>
+
+  <h1>
+    Managing debits<br>
+    Rasie here </h1>
+
+  <p>
+    We connect businesses, entrepreneurs, and organizations
+    to collaborate, grow together, and create long-term
+    success through trusted associations.
+  </p>
+
+  <a href="contact.html" class="hire-btn">
+    Become a Partner
+  </a>
+</div>
+
+
+</section>
+
+<script>
+/* BACKGROUND IMAGE SLIDER */
+const slides = document.querySelectorAll('.hero-bg img');
+let index = 0;
+
+setInterval(() => {
+  slides[index].classList.remove('active');
+  index = (index + 1) % slides.length;
+  slides[index].classList.add('active');
+}, 4000);
+</script>
+
+
+<style>
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: #ffffff;
+  color: #222;
+}
+
+/* ================= SECTION ================= */
+.products-section {
+  padding: 80px 6%;
+  text-align: center;
+}
+
+.products-section small {
+  color: #2563eb;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.products-section h2 {
+  font-size: 36px;
+  margin: 10px 0 16px;
+}
+
+.products-section p {
+  max-width: 900px;
+  margin: auto;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ================= GRID ================= */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 50px;
+}
+
+/* ================= CARD ================= */
+.product-card {
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 420px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* TOP CONTENT */
+.card-content {
+  padding: 26px;
+  text-align: left;
+}
+
+.card-content h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.card-content p {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* IMAGE */
+.card-image {
+  height: 200px;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* BUTTON */
+.card-btn {
+  margin-top: 16px;
+  display: inline-block;
+  padding: 10px 18px;
+  background: #e11d48;
+  color: #fff;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* ================= CARD COLORS ================= */
+.card-1 { background: linear-gradient(180deg, #fde2d5, #ffffff); }
+.card-2 { background: linear-gradient(180deg, #e7d5b8, #ffffff); }
+.card-3 { background: linear-gradient(180deg, #fff1c1, #ffffff); }
+.card-4 { background: linear-gradient(180deg, #dcdffd, #ffffff); }
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1100px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .products-section h2 {
+    font-size: 28px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="products-section">
+  <small>Our Products</small>
+  <h2>Get the most out of our products</h2>
+  <p>
+    Our corporate & business banking products across payable & receivable
+    management, lending, corporate cards, and digital solutions help you focus
+    on what matters most — your business.
+  </p>
+
+  <div class="products-grid">
+
+    <!-- CARD 1 -->
+    <div class="product-card card-1">
+      <div class="card-content">
+        <h3>Corporate Net Banking</h3>
+        <p>
+          One-stop digital business banking portal for account management,
+          salary payments, tax & bill payments.
+        </p>
+      </div>
+      <div class="card-image">
+        <img src="ip1.webp" alt="">
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="product-card card-2">
+      <div class="card-content">
+        <h3>Smart Trade</h3>
+        <p>
+          Manage trade remittances, bank guarantees (BG), letters of credit (LC)
+          and regularizations.
+        </p>
+      </div>
+      <div class="card-image">
+        <img src="ip11.webp" alt="">
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="product-card card-3">
+      <div class="card-content">
+        <h3>API Banking</h3>
+        <p>
+          Seamlessly integrate banking services with ERP systems for instant
+          transactions and easy reconciliation.
+        </p>
+      </div>
+      <div class="card-image">
+        <img src="ip6.webp" alt="">
+      </div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="product-card card-4">
+      <div class="card-content">
+        <h3>Smart Pay</h3>
+        <p>
+          Comprehensive collection stack with payment links, UPI, RTGS/NEFT,
+          NACH, OTC & more.
+        </p>
+        <a href="contact.html" class="card-btn">Know More</a>
+      </div>
+      <div class="card-image">
+        <img src="h2-3.webp" alt="">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* ===== SECTION ===== */
+.who-we-are {
+  background: radial-gradient(circle at top, #0b1220, #05080f);
+  color: #e5e7eb;
+  padding: 100px 6%;
+}
+
+.who-container {
+  display: flex;
+  gap: 80px;
+  align-items: center;
+}
+
+/* ===== LEFT IMAGE ===== */
+.image-wrap {
+  position: relative;
+  max-width: 520px;
+  width: 100%;
+}
+
+.image-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -25px;
+  border: 1px solid #c9a24d;
+  z-index: 0;
+}
+
+.image-wrap img {
+  width: 100%;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+/* EXPERIENCE BADGE */
+.exp-badge {
+  position: absolute;
+  bottom: -30px;
+  right: -30px;
+  background: #c9a24d;
+  color: #05080f;
+  width: 130px;
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.exp-badge h2 {
+  font-size: 42px;
+  line-height: 1;
+}
+
+.exp-badge span {
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+/* ===== RIGHT CONTENT ===== */
+.content {
+  max-width: 620px;
+}
+
+.content small {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.content h1 {
+  font-size: 48px;
+  margin: 14px 0 24px;
+  font-family: "Georgia", serif;
+}
+
+.content p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #cbd5f5;
+  margin-bottom: 24px;
+}
+
+/* SIGNATURE BLOCK */
+.signature {
+  margin-top: 30px;
+  border-left: 3px solid #c9a24d;
+  padding-left: 18px;
+}
+
+.signature strong {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.signature span {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.signature .sign {
+  font-family: "Brush Script MT", cursive;
+  font-size: 28px;
+  color: #94a3b8;
+  margin-top: 8px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .who-container {
+    flex-direction: column;
+    gap: 60px;
+  }
+
+  .content h1 {
+    font-size: 36px;
+  }
+
+  .exp-badge {
+    right: 10px;
+    bottom: -20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="who-we-are">
+  <div class="who-container">
+
+    <!-- LEFT IMAGE -->
+    <div class="image-wrap">
+      <img src="nonit.webp" alt="Debit Management Office">
+      <div class="exp-badge">
+        <h2>20+</h2>
+        <span>YEARS EXP.</span>
+      </div>
+    </div>
+
+    <!-- RIGHT CONTENT -->
+    <div class="content">
+      <small>Who We Are</small>
+      <h1>ARCHITECTS OF SMART DEBIT MANAGEMENT.</h1>
+
+      <p>
+        Since 2003, our debit management solutions have empowered businesses and
+        individuals to regain financial control, reduce liabilities, and build
+        sustainable financial systems. We don’t just manage debt — we design
+        structured pathways toward long-term stability.
+      </p>
+
+      <p>
+        Our approach blends financial expertise, intelligent analytics, and
+        real-world experience to navigate complex debit portfolios even in
+        volatile economic environments.
+      </p>
+
+      <div class="signature">
+        <strong>MICHAEL R. ANDERSON</strong>
+        <span>Founder & Financial Strategist</span>
+        <div class="sign">Michael Anderson</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: #ffffff;
+}
+
+/* ===== SECTION ===== */
+.quiz-section {
+  padding: 90px 6%;
+  background: #eef7f6;
+  overflow: hidden;
+}
+
+.quiz-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* ===== LEFT CONTENT ===== */
+.quiz-text {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: all 1s ease;
+}
+
+.quiz-text.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.quiz-text small {
+  letter-spacing: 2px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.quiz-text h2 {
+  font-size: 36px;
+  margin: 18px 0;
+  color: #0f172a;
+}
+
+.quiz-text p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #374151;
+  max-width: 520px;
+}
+
+/* ===== BUTTON ===== */
+.quiz-btn {
+  display: inline-block;
+  margin-top: 30px;
+  background: #0a66c2;
+  color: #fff;
+  padding: 14px 26px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.quiz-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(10,102,194,0.4);
+}
+
+/* ===== RIGHT IMAGE ===== */
+.quiz-image {
+  opacity: 0;
+  transform: translateX(60px) scale(0.95);
+  transition: all 1.2s ease;
+}
+
+.quiz-image.show {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.quiz-image img {
+  width: 100%;
+  border-radius: 18px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .quiz-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .quiz-text h2 {
+    font-size: 28px;
+  }
+
+  .quiz-text {
+    text-align: center;
+  }
+
+  .quiz-text p {
+    margin: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="quiz-section">
+  <div class="quiz-container">
+
+    <!-- LEFT TEXT -->
+    <div class="quiz-text">
+      <small>RETIREMENT PROFILES QUIZ</small>
+      <h2>How do you envision your dream retirement?</h2>
+      <p>
+        Will you travel? Will you take up a new hobby?
+        The Ameriprise® Retirement Profiles experience is a quick,
+        enjoyable way to identify what’s most important to you in retirement.
+      </p>
+      <a href="contact.html" class="quiz-btn">Take our 3-minute quiz</a>
+    </div>
+
+    <!-- RIGHT IMAGE -->
+    <div class="quiz-image">
+      <img src="ip4.webp" alt="Happy retirees">
+    </div>
+
+  </div>
+
+
+<script>
+/* ===== SCROLL TRIGGER ===== */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll(".quiz-text, .quiz-image")
+  .forEach(el => observer.observe(el));
+</script>
+</section>
+
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #b5b7bc;
+    }
+
+    /* ================= FOOTER ================= */
+    .stackly-footer {
+      background: radial-gradient(circle at top, #0b1220, #020617);
+      color: #cbd5e1;
+      padding: 60px 6% 0;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.3fr 1px 1fr 1px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* BRAND */
+    .footer-brand img {
+      width: 140px;
+      margin-bottom: 12px;
+    }
+
+    .footer-brand p {
+      font-size: 15px;
+      color: #94a3b8;
+    }
+
+    /* DIVIDER */
+    .footer-divider {
+      width: 1px;
+      height: 140px;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        #1e293b,
+        transparent
+      );
+    }
+
+    /* LINKS */
+    .footer-links h4,
+    .footer-social h4 {
+      color: #ffffff;
+      margin-bottom: 16px;
+      font-size: 18px;
+    }
+
+    .footer-links a,
+    .footer-social a {
+      display: block;
+      text-decoration: none;
+      color: #cbd5e1;
+      margin-bottom: 12px;
+      font-size: 15px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover,
+    .footer-social a:hover {
+      color: #22d3ee;
+    }
+
+    /* SOCIAL ICONS */
+    .footer-social i {
+      margin-right: 10px;
+      color: #22d3ee;
+    }
+
+    /* BOTTOM BAR */
+    .footer-bottom {
+      margin-top: 50px;
+      padding: 20px 0;
+      border-top: 1px solid #1e293b;
+      text-align: center;
+      font-size: 14px;
+      color: #94a3b8;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 900px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+      }
+
+      .footer-divider {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="stackly-footer">
+
+    <div class="footer-container">
+
+      <!-- BRAND -->
+      <div class="footer-brand">
+        <img src="stackly.webp" alt="Stackly Logo">
+        <p>Get your business engaged</p>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <!-- MAIN -->
+      <div class="footer-links">
+        <h4>Main</h4>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="service.html">Service</a>
+        <a href="dash.html">Dashboard 📊</a>
+        <a href="contact.html">Contact 📞</a>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <!-- SOCIAL -->
+      <div class="footer-social">
+        <h4>Social</h4>
+        <a href="404.html"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
+        <a href="404.html"><i class="fa-brands fa-x-twitter"></i> Twitter</a>
+        <a href="404.html"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+        <a href="404.html"><i class="fa-brands fa-instagram"></i> Instagram</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      © Stackly – 2025. All rights reserved.
+    </div>
+
+  </footer>
+
+</body>
+</html>

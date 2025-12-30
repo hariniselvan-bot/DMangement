@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Loading – Stackly</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ============ RESET ============ */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",sans-serif;
+}
+
+body{
+  width:100%;
+  height:100vh;
+  background:radial-gradient(circle at top,#020617,#000000);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#e5e7eb;
+  overflow:hidden;
+}
+
+/* ============ CONTAINER ============ */
+.loader-container{
+  text-align:center;
+}
+
+/* LOGO */
+.loader-logo{
+  font-size:38px;
+  font-weight:700;
+  color:#22d3ee;
+  margin-bottom:20px;
+}
+
+/* BAR */
+.loader-bar{
+  width:260px;
+  height:8px;
+  background:#0f172a;
+  border-radius:50px;
+  overflow:hidden;
+  margin:auto;
+}
+
+.loader-progress{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#22d3ee,#0ea5e9);
+  border-radius:50px;
+  animation:load 3s ease forwards;
+}
+
+/* PERCENT */
+.loader-percent{
+  margin-top:14px;
+  font-size:15px;
+  color:#94a3b8;
+}
+
+/* TEXT */
+.loader-text{
+  margin-top:12px;
+  font-size:14px;
+  letter-spacing:1px;
+  color:#94a3b8;
+}
+
+/* GLOW CIRCLE */
+.glow{
+  position:absolute;
+  width:350px;
+  height:350px;
+  background:#22d3ee;
+  filter:blur(120px);
+  opacity:0.12;
+  animation:pulse 3s infinite alternate;
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes load{
+  to{ width:100%; }
+}
+
+@keyframes pulse{
+  from{ transform:scale(0.8); }
+  to{ transform:scale(1.1); }
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .loader-logo{ font-size:30px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow"></div>
+
+<div class="loader-container">
+  <div class="loader-logo">STACKLY</div>
+
+  <div class="loader-bar">
+    <div class="loader-progress"></div>
+  </div>
+
+  <div class="loader-percent" id="percent">0%</div>
+  <div class="loader-text">Loading secure experience…</div>
+</div>
+
+<script>
+let count = 0;
+const percent = document.getElementById("percent");
+
+const counter = setInterval(() => {
+  count++;
+  percent.innerText = count + "%";
+
+  if(count >= 100){
+    clearInterval(counter);
+
+    // Redirect to homepage
+    setTimeout(() => {
+      window.location.href = "home.html"; // change if needed
+    }, 400);
+  }
+}, 30);
+</script>
+
+</body>
+</html>

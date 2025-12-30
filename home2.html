@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stackly home</title>
+  
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+  <style>
+    /* ---------- Global custom styles ---------- */
+    :root {
+      --accent: #06b6d4; /* cyan-400 */
+      --muted: #9ca3af;
+      --card: #0f1724; /* dark card */
+    }
+
+    /* Smooth entrance animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp .9s cubic-bezier(.2,.9,.2,1) both; }
+
+    @keyframes fadeScale {
+      from { opacity: 0; transform: translateY(24px) scale(.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .fade-scale { animation: fadeScale 1s ease both; }
+
+    /* Subtle float on cards */
+    .card-hover { transition: transform .35s ease, box-shadow .35s ease; }
+    .card-hover:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 18px 40px rgba(2,6,23,.6); }
+
+    /* Desktop dropdown style */
+    .dropdown-panel { min-width: 11rem; }
+
+    /* Hero overlay & text shadow */
+    .hero-overlay { background: linear-gradient(180deg, rgba(2,6,23,0.55), rgba(2,6,23,0.75)); }
+    .glow { text-shadow: 0 6px 30px rgba(6,182,212,0.08); }
+
+    /* Responsive tweaks */
+    @media (min-width:768px) {
+      .nav-center { left: 50%; transform: translateX(-50%); }
+    }
+
+    /* Accessibility focus */
+    a:focus, button:focus { outline: 3px solid rgba(6,182,212,0.18); outline-offset: 2px; }
+
+    /* small utils */
+    .muted { color: var(--muted); }
+
+    .what-we-do {
+    padding: 60px 20px;
+    text-align: center;
+    background: #050505; /* or remove if you want full black page */
+}
+
+.what-we-do h2 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #d8d8e1;
+    margin-bottom: 15px;
+}
+
+.what-we-do p {
+    color: #9eb5c7;
+    font-size: 18px;
+}
+/* Custom breakpoint: show desktop menu only at ≥1117px */
+@media (min-width: 1117px) {
+  .xl2\:flex {
+    display: flex !important;
+  }
+  .xl2\:hidden {
+    display: none !important;
+  }
+}
+.nav-active {
+  color: cyan !important;
+}
+
+
+
+  </style>
+</head>
+<body class="font-inter antialiased bg-black text-white">
+
+ 
+<!-- HEADER -->
+<header class="header fixed top-0 left-0 w-full z-50 bg-black shadow h-20 flex items-center">
+  <div class="max-w-7xl w-full mx-auto px-6 flex items-center justify-between h-full">
+
+    <!-- LOGO -->
+    <a href="index.html" class="flex items-center gap-3">
+  <img src="stackly.webp" class="w-40 h-40 object-contain" alt="Stackly logo">
+</a>
+
+    <!-- DESKTOP MENU (only visible above 1117px) -->
+    <nav class="hidden xl2:flex gap-8 font-semibold items-center text-white">
+      <div class="relative group">
+       <button onclick="toggleMobileDrop()" class="flex items-center justify-between w-full py-2 nav-active">
+    <span>Home 2</span>
+    <i class="fa-solid fa-chevron-down text-sm"></i>
+</button>
+
+
+        <div class="absolute bg-black shadow-lg rounded-lg hidden group-hover:block 
+             w-36 top-full pt-3 z-50">
+          <a href="index.html" class="block px-4 py-2 hover:bg-gray-800 nav-link">Home </a>
+        </div>
+      </div>
+
+      <a href="About1.html" class="nav-link hover:text-cyan-400">About</a>
+      <a href="services1.html" class="nav-link hover:text-cyan-400">Services</a>
+      <a href="FAQ.html" class="hover:text-cyan-300">FAQ</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
+
+      <a href="login.html" class="px-5 py-2 bg-cyan-500 text-black rounded-lg hover:bg-cyan-400 nav-link">
+        LOGIN
+      </a>
+    </nav>
+
+    <!-- MOBILE HAMBURGER (visible up to 1117px) -->
+    <button id="hamburgerBtn" class="xl2:hidden p-2 rounded-md">
+      <i class="fa-solid fa-bars text-2xl text-white"></i>
+    </button>
+
+  </div>
+</header>
+
+  
+  <!-- ================= MOBILE MENU ================= -->
+  <nav id="mobileMenu" class="hidden fixed inset-x-0 top-20 z-40 bg-black text-white border-t border-gray-800 shadow-lg">
+    <div class="px-6 py-6 flex flex-col gap-4 text-lg font-semibold">
+
+     <!-- DROPDOWN BUTTON -->
+    <button onclick="toggleMobileDrop()" 
+            class="flex items-center justify-between w-full">
+            <a href="home2.html" class="hover:text-cyan-300">Home 2</a>
+      <i class="fa-solid fa-chevron-down text-sm"></i>
+    </button>
+
+    <!-- DROPDOWN CONTENT -->
+    <div id="mobileHomeDrop" class="hidden pl-4">
+      <a href="index.html" class="block py-2 hover:text-cyan-300">Home </a>
+    </div>
+
+      <a href="About1.html" class="nav-link hover:text-cyan-400">About</a>
+      <a href="services1.html" class="nav-link hover:text-cyan-400">Services</a>
+      <a href="FAQ.html" class="hover:text-cyan-300">FAQ</a>
+      <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a>
+
+      <a href="login.html" class="text-cyan-300 font-semibold mt-2">Login</a>
+    </div>
+  </nav>
+<main class="pt-32">
+
+<script>
+  const hamburgerBtn = document.getElementById("hamburgerBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  hamburgerBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+  function toggleMobileDrop() {
+  const drop = document.getElementById("mobileHomeDrop");
+  drop.classList.toggle("hidden");
+}
+
+</script>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+
+html,body{
+  width:100%;
+  overflow-x:hidden;
+}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative;
+  width:100%;
+  height:100vh;
+  overflow:hidden;
+}
+
+/* VIDEO */
+.hero video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* DARK + GREEN OVERLAY */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      to right,
+      rgba(3, 46, 29, 0.92) 0%,
+      rgba(3, 46, 29, 0.75) 45%,
+      rgba(3, 46, 29, 0.4) 70%,
+      rgba(3, 46, 29, 0.15) 100%
+    );
+  z-index:1;
+}
+
+/* CONTENT WRAP */
+.hero-content{
+  position:relative;
+  z-index:2;
+  height:100%;
+  max-width:1200px;
+  margin:auto;
+  padding:0 6%;
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  align-items:center;
+  gap:50px;
+}
+
+/* LEFT TEXT */
+.hero-text small{
+  color:#2dd4bf;
+  letter-spacing:2px;
+  font-size:13px;
+}
+
+.hero-text h1{
+  font-size:56px;
+  line-height:1.15;
+  margin:18px 0;
+  color:#ffffff;
+}
+
+.hero-text h1 span{
+  color:#22d3ee;
+}
+
+.hero-text p{
+  font-size:17px;
+  line-height:1.8;
+  color:#d1fae5;
+  max-width:520px;
+  margin-bottom:26px;
+}
+
+/* BUTTON */
+.hero-btn{
+  display:inline-block;
+  background:#22d3ee;
+  color:#022c22;
+  padding:14px 34px;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:600;
+  transition:all .3s ease;
+}
+
+.hero-btn:hover{
+  background:#2dd4bf;
+  transform:translateY(-2px);
+}
+
+/* RIGHT IMAGE (OPTIONAL) */
+.hero-image img{
+  width:100%;
+  border-radius:18px;
+  box-shadow:0 25px 60px rgba(0,0,0,.6);
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:900px){
+  .hero-content{
+    grid-template-columns:1fr;
+    text-align:left;
+  }
+
+  .hero-text h1{
+    font-size:36px;
+  }
+
+  .hero-image{
+    display:none; /* keep video visible */
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+
+  <!-- BACKGROUND VIDEO -->
+  <video autoplay muted loop playsinline>
+    <source src="bg.mp4" type="video/mp4">
+  </video>
+
+  <!-- CONTENT -->
+  <div class="hero-content">
+
+    <!-- LEFT -->
+    <div class="hero-text">
+      <small>BUILD YOUR FINANCIAL STABILITY</small>
+
+      <h1>
+        Unlock Control With<br>
+        <span>Smart Debit Management</span>
+      </h1>
+
+      <p>
+        Advanced debit tracking, automated payment controls, and intelligent
+        insights designed to reduce financial stress and improve cash-flow
+        efficiency.
+      </p>
+
+      <a href="services.html" class="hero-btn">Explore Services</a>
+    </div>
+
+    <!-- RIGHT (OPTIONAL IMAGE OVER VIDEO) -->
+    <div class="hero-image">
+      <img src="ip10.webp" alt="Debit Management">
+    </div>
+
+  </div>
+
+</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Debit Manager</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: #0e0e0e;
+        color: #fff;
+    }
+
+    /* Hero Section */
+    .hero {
+        width: 100%;
+        padding: 80px 20px;
+        text-align: center;
+        background: linear-gradient(135deg, #1e1e1e, #000);
+    }
+    .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        color: #00eaff;
+    }
+    .hero p {
+        font-size: 1.2rem;
+        color: #d5d5d5;
+        max-width: 700px;
+        margin: auto;
+    }
+
+    /* Service Cards */
+    .section-title {
+        text-align: center;
+        font-size: 2.3rem;
+        margin: 40px 0 20px;
+        color: #00eaff;
+    }
+
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 22px;
+        padding: 20px;
+        width: 90%;
+        margin: auto;
+    }
+
+    .card {
+        background: #141414;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        transition: 0.3s ease;
+        border: 1px solid rgba(0, 234, 255, 0.3);
+        box-shadow: 0 0 15px rgba(0, 234, 255, 0.2);
+    }
+
+    .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 0 25px rgba(0, 234, 255, 0.5);
+    }
+
+    .card h3 {
+        color: #00eaff;
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        color: #b8b8b8;
+        font-size: 0.95rem;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+        width: 90%;
+        margin: 50px auto;
+    }
+
+    .faq-box {
+        background: #141414;
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin-bottom: 12px;
+        border: 1px solid rgba(0, 234, 255, 0.3);
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    .faq-box h3 {
+        margin: 0;
+        font-size: 1.1rem;
+        color: #00eaff;
+    }
+
+    .faq-box p {
+        margin-top: 8px;
+        font-size: 0.95rem;
+        color: #b8b8b8;
+        display: none;
+    }
+
+    .faq-box.active {
+        box-shadow: 0 0 20px rgba(0, 234, 255, 0.5);
+    }
+
+    .faq-box.active p {
+        display: block;
+    }
+
+</style>
+</head>
+
+<body>
+
+<style>
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+/* ================= TITLE ================= */
+.section-title {
+  text-align: center;
+  font-size: 38px;
+  margin: 90px 0 40px;
+}
+
+/* ================= GRID ================= */
+.card-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 6% 100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+/* ================= CARD ================= */
+.card {
+  background: #ffffff;
+  padding: 30px 26px;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(.2,.8,.2,1);
+}
+
+/* CARD TEXT */
+.card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #475569;
+}
+
+/* HOVER EFFECT */
+.card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 30px 60px rgba(34,211,238,0.25);
+}
+
+/* GLOW BACKGROUND */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #22d3ee, #0ea5e9);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+}
+
+.card:hover::before {
+  opacity: 0.15;
+}
+
+/* ================= SCROLL ANIMATION ================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.8s cubic-bezier(.2,.8,.2,1);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 30px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= FEATURES ================= -->
+<h2 class="section-title">Our Features</h2>
+
+<div class="card-container">
+
+  <div class="card reveal">
+    <h3>Expense Tracking</h3>
+    <p>Monitor where your money goes every day.</p>
+  </div>
+
+  <div class="card reveal">
+    <h3>Auto Debit Alerts</h3>
+    <p>Get reminders before any scheduled payment.</p>
+  </div>
+
+  <div class="card reveal">
+    <h3>Bill Management</h3>
+    <p>Organize monthly bills with smart reminders.</p>
+  </div>
+
+  <div class="card reveal">
+    <h3>Budget Creator</h3>
+    <p>Set monthly limits and control spending.</p>
+  </div>
+
+  <div class="card reveal">
+    <h3>Loan Tracking</h3>
+    <p>Track EMIs, interest and due dates easily.</p>
+  </div>
+
+  <div class="card reveal">
+    <h3>Secure Vault</h3>
+    <p>Store financial details fully encrypted.</p>
+  </div>
+
+  <div class="card reveal">
+    <h3>Analytics Dashboard</h3>
+    <p>Get visual insights into your spending habits.</p>
+  </div>
+
+  <div class="card reveal">
+    <h3>Multi-Account Support</h3>
+    <p>Track all wallets, cards & bank accounts in one place.</p>
+  </div>
+
+</div>
+
+<!-- ================= JS ================= -->
+<script>
+const cards = document.querySelectorAll('.reveal');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('show');
+      }, index * 120); // stagger animation
+    }
+  });
+}, { threshold: 0.2 });
+
+cards.forEach(card => observer.observe(card));
+</script>
+
+
+<!-- FAQ SECTION -->
+<h2 class="section-title">Frequently Asked Questions</h2>
+
+<div class="faq-section">
+
+    <div class="faq-box">
+        <h3>What is Debit Manager?</h3>
+        <p>It is a tool to manage expenses, track debits, set reminders and organize financial habits.</p>
+    </div>
+
+    <div class="faq-box">
+        <h3>Is my data safe?</h3>
+        <p>Yes. All data is securely encrypted and never shared.</p>
+    </div>
+
+    <div class="faq-box">
+        <h3>Can I track multiple bank accounts?</h3>
+        <p>Yes, you can add multiple accounts, wallets and debit cards.</p>
+    </div>
+
+    <div class="faq-box">
+        <h3>Does it send due-date reminders?</h3>
+        <p>Yes, automatic alerts notify you before payment dates.</p>
+    </div>
+
+</div>
+
+<script>
+    // FAQ Toggle
+    const faqs = document.querySelectorAll(".faq-box");
+    faqs.forEach(box => {
+        box.addEventListener("click", () => {
+            box.classList.toggle("active");
+        });
+    });
+</script>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #05070c;
+    font-family: Arial, sans-serif;
+    color: #9ca3af;
+  }
+
+  /* ===== SECTION ===== */
+  .partners {
+    padding: 90px 0;
+    overflow: hidden;
+    background:
+      radial-gradient(600px 300px at 10% 20%, rgba(6,182,212,.12), transparent),
+      radial-gradient(600px 300px at 90% 80%, rgba(124,58,237,.15), transparent),
+      #05070c;
+  }
+
+  .partners h4 {
+    text-align: center;
+    letter-spacing: 4px;
+    font-size: 13px;
+    margin-bottom: 50px;
+    color: #9ca3af;
+  }
+
+  /* ===== SLIDER ===== */
+  .logo-slider {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .logo-track {
+    display: flex;
+    gap: 28px;
+    width: max-content;
+    animation: scrollLeft 30s linear infinite;
+  }
+
+  /* ===== CARD ===== */
+  .logo-card {
+    min-width: 180px;
+    height: 90px;
+    background: linear-gradient(
+      180deg,
+      rgba(255,255,255,0.06),
+      rgba(255,255,255,0.02)
+    );
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    color: #111;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  }
+
+  /* Logo text look (replace with images later) */
+  .logo-card span {
+    background: #e5e7eb;
+    padding: 8px 18px;
+    border-radius: 6px;
+    color: #111;
+  }
+
+  /* Animation */
+  @keyframes scrollLeft {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .logo-card {
+      min-width: 150px;
+      height: 80px;
+      font-size: 16px;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<section class="partners">
+  <h4>TRUSTED BY 30+ GLOBAL PARTNERS</h4>
+
+  <div class="logo-slider">
+    <div class="logo-track">
+
+      <!-- FIRST SET -->
+      <div class="logo-card"><span>Azure</span></div>
+      <div class="logo-card"><span>Google</span></div>
+      <div class="logo-card"><span>IBM</span></div>
+      <div class="logo-card"><span>Cisco</span></div>
+      <div class="logo-card"><span>Oracle</span></div>
+      <div class="logo-card"><span>Fortinet</span></div>
+      <div class="logo-card"><span>PaloAlto</span></div>
+
+      <!-- DUPLICATE SET (FOR LOOP) -->
+      <div class="logo-card"><span>Azure</span></div>
+      <div class="logo-card"><span>Google</span></div>
+      <div class="logo-card"><span>IBM</span></div>
+      <div class="logo-card"><span>Cisco</span></div>
+      <div class="logo-card"><span>Oracle</span></div>
+      <div class="logo-card"><span>Fortinet</span></div>
+      <div class="logo-card"><span>PaloAlto</span></div>
+
+    </div>
+  </div>
+</section>
+
+
+<style>
+  body {
+    margin: 0;
+    font-family: Inter, Arial, sans-serif;
+    background: #05070c;
+    color: #e5e7eb;
+  }
+
+  /* SECTION */
+  .solutions {
+    padding: 80px 24px;
+    max-width: 1400px;
+    margin: auto;
+  }
+
+  /* GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 26px;
+  }
+
+  /* CARD */
+  .card {
+    background: linear-gradient(180deg, #0b0f16, #090d14);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 18px;
+    padding: 36px 28px;
+    transition: all .35s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(34,211,238,.35);
+    box-shadow: 0 0 30px rgba(34,211,238,.15);
+  }
+
+  /* ICON */
+  .icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(34,211,238,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 22px;
+  }
+
+  /* TEXT */
+  .card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #ffffff;
+  }
+
+  .card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #9ca3af;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<section class="solutions">
+  <div class="cards-grid">
+
+    <div class="card">
+      <div class="icon">🚨</div>
+      <h3>Incident Response</h3>
+      <p>Rapid containment and recovery to minimize damage during cyber incidents.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🧪</div>
+      <h3>Vulnerability Assessment</h3>
+      <p>Identify system weaknesses before attackers can exploit them.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🔑</div>
+      <h3>Data Encryption</h3>
+      <p>Protect sensitive data using industry-grade encryption standards.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">📜</div>
+      <h3>Compliance & Audit</h3>
+      <p>Ensure compliance with ISO, SOC2, GDPR, and security frameworks.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">👤</div>
+      <h3>Identity & Access</h3>
+      <p>Secure authentication, authorization, and access governance.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🤖</div>
+      <h3>AI Threat Intelligence</h3>
+      <p>Predictive threat intelligence powered by machine learning.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">💻</div>
+      <h3>Endpoint Security</h3>
+      <p>Protect devices from malware, ransomware, and zero-day attacks.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">☁️</div>
+      <h3>Cloud Security</h3>
+      <p>Secure cloud infrastructure across AWS, Azure, and GCP.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">📡</div>
+      <h3>SOC Monitoring</h3>
+      <p>24/7 security monitoring and alert response.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🛡️</div>
+      <h3>Zero Trust Security</h3>
+      <p>Verify every user and device before access.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🧬</div>
+      <h3>Malware Analysis</h3>
+      <p>Deep analysis of malicious files and behavior.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🎓</div>
+      <h3>Security Training</h3>
+      <p>Cyber awareness training for employees.</p>
+    </div>
+
+  </div>
+</section>
+</body>
+</html>
+
+<footer class="bg-[#0c0016] text-gray-300 py-16 px-6">
+
+  <div class="max-w-6xl mx-auto">
+
+    <!-- GRID -->
+    <div class="grid md:grid-cols-3 gap-12 items-start text-center md:text-left">
+
+      <!-- LEFT -->
+      <div>
+        <img src="stackly.webp" class="w-40 mx-auto md:mx-0 mb-3" />
+          Get your business engaged
+        </p>
+      </div>
+
+      <!-- CENTER -->
+      <div class="md:border-l md:border-gray-700 md:pl-10">
+        <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">Main</h4>
+
+        <ul class="space-y-3 text-gray-300 text-sm">
+          <li><a href="home2.html" class="hover:text-white">Home </a></li>
+          <li><a href="About1.html" class="nav-link hover:text-cyan-400">About</a></li>
+      <li><a href="services1.html" class="nav-link hover:text-cyan-400">Services</a></li>
+     <li> <a href="FAQ.html" class="hover:text-cyan-300">FAQ</a></li>
+     <li> <a href="contact.html" class="nav-link hover:text-cyan-400">Contact📞</a></li>
+        </ul>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="md:border-l md:border-gray-700 md:pl-10">
+        <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">Social</h4>
+
+        <ul class="space-y-3 text-gray-300 text-sm">
+          <li><i class="fa-brands fa-facebook mr-2"></i> <a href="404.html" class="hover:text-white">Facebook</a></li>
+          <li><i class="fa-brands fa-twitter mr-2"></i> <a href="404.html" class="hover:text-white">Twitter</a></li>
+          <li><i class="fa-brands fa-linkedin mr-2"></i> <a href="404.html" class="hover:text-white">LinkedIn</a></li>
+          <li><i class="fa-brands fa-instagram mr-2"></i> <a href="404.html" class="hover:text-white">Instagram</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- COPYRIGHT -->
+    <div class="text-center text-gray-500 text-sm mt-12 border-t border-gray-800 pt-6">
+      © Stackly – 2025. All rights reserved.
+    </div>
+
+  </div>
+</footer>
+
+<script>
+const sections = document.querySelectorAll("section");
+
+function reveal() {
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top < window.innerHeight - 100) {
+      sec.style.opacity = "1";
+      sec.style.transform = "translateY(0)";
+    }
+  });
+}
+
+window.addEventListener("scroll", reveal);
+reveal();
+</script>
+
+</body>
+</html>
